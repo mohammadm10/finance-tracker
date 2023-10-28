@@ -1,12 +1,16 @@
+"use client";
+
 import Head from 'next/head';
 import { Button, TextField } from '@mui/material';
 import { useState } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 export default function Home() {
 
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();
 
   const logIn = async () => {
     try{
@@ -16,6 +20,12 @@ export default function Home() {
       });
       
       console.log(res.data);
+      if (res.status === 200) {
+        console.log('Successful login');
+        router.push('/HomePage');
+      } else {
+        console.log('Error logging in');
+      }
     } catch (error){
       console.log(error);
     }
