@@ -14,5 +14,9 @@ module.exports = {
       },
     },
   },
+  colors: {
+    'orange': "#F64C72",
+    'black': "#010101",
+  },
   plugins: [],
 }
