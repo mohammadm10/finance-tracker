@@ -22,7 +22,10 @@ export default function Home() {
       console.log(res.data);
       if (res.status === 200) {
         console.log('Successful login');
-        router.push('/HomePage');
+        router.push({
+          pathname: '/HomePage',
+          query: { username: username },
+        });
       } else {
         console.log('Error logging in');
       }
