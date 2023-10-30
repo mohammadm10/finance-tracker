@@ -34,6 +34,12 @@ export default function Home() {
     }
   }
 
+  const signUp = async () => {
+    router.push({
+      pathname: '/signUp',
+    })
+  }
+
   return (
     <>
       <Head>
@@ -61,6 +67,17 @@ export default function Home() {
               }}
             >
               Log In
+            </Button>
+            <Button onClick={signUp}
+              style={{
+                borderRadius: 17,
+                padding: "10px 30px",
+                fontSize: "12px",
+                backgroundColor: "#F64C72",
+                color: "#FFF"
+              }}
+            >
+              Sign Up
             </Button>
           </div>
         </section>

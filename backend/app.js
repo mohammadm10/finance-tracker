@@ -36,10 +36,11 @@ app.post('/createUser', (req, res) => {
   connection.query(query, values, (err, results) => {
     if (err) {
       console.error('Error executing the query: ' + err.stack);
+      res.status(500).json({ error: err.stack });
       return;
     }
     console.log('Inserted new user into the database');
-    
+    res.send('Successful user creation');
   });
 })
 
