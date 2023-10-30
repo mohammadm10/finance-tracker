@@ -10,6 +10,7 @@ export default function HomePage() {
     const { username } = router.query;
 
     const [data, setData] = useState([]);
+    const [total, setTotal] = useState([]);
     const [item, setItem] = useState('');
     const [amount, setAmount] = useState('');
 
@@ -28,6 +29,7 @@ export default function HomePage() {
             if (res.status === 200) {
                 console.log('Adding item');
                 fetchData();
+                fetchTotal();
             } else {
                 console.log('Error adding item');
             }
@@ -47,8 +49,22 @@ export default function HomePage() {
             });
     }
 
+    function fetchTotal() {
+        fetch('http://localhost:5000/api/total')
+            .then((response) => response.json())
+            .then((total) => {
+                const totalRounded = Math.round(total['data'][0]['total'] * 100) / 100
+                setTotal(totalRounded);
+                console.log(total['data'][0]['total']);
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            });
+    }
+
     useEffect(() => {
         fetchData();
+        fetchTotal();
     }, []);
 
     return (
@@ -98,6 +114,9 @@ export default function HomePage() {
                         ) : (
                             <p></p>
                         )}
+                    </div>
+                    <div>
+                        <p>Total: ${total}</p>
                     </div>
                 </section>
             </main>

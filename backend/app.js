@@ -79,8 +79,19 @@ app.get('/api/data', (req, res) => {
       res.status(500).json({ error: 'Error fetching data' });
       return;
     }
-    
-    // Send the retrieved data as a JSON response
+    res.json({ data: results });
+  });
+});
+
+app.get('/api/total', (req, res) => {
+  const query = 'SELECT sum(amount) AS total FROM finances';
+  
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.error('Error executing the query: ' + err.stack);
+      res.status(500).json({ error: 'Error fetching total' });
+      return;
+    }
     res.json({ data: results });
   });
 });
