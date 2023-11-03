@@ -19,10 +19,12 @@ export default function HomePage() {
 
     const enterNewItem = async () => {
         try {
+            const currentDate = new Date();
             const res = await axios.post('http://localhost:5000/enterItem', {
                 item,
                 amount,
                 username,
+                date: currentDate.toISOString(),
             });
 
             console.log(res.data);

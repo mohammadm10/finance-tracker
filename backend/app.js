@@ -45,14 +45,14 @@ app.post('/createUser', (req, res) => {
 })
 
 app.post('/enterItem', (req, res) => {
-  const { item, amount, username } = req.body;
+  const { item, amount, username, date } = req.body;
 
   const query = `INSERT INTO finances
-  (username, item, amount)
+  (username, item, amount, date)
   VALUES
-  (?, ?, ?)`
+  (?, ?, ?, ?)`
 
-  const values = [username, item, amount];
+  const values = [username, item, amount, date];
   connection.query(query, values, (err, results) => {
     if (err) {
       console.error('Error executing the query: ' + err.stack);
