@@ -68,13 +68,30 @@ app.post('/login', (req, res) => {
   const { username, password } = req.body;
   console.log('Received username:', username);
   console.log('Received password:', password);
-  res.send('Login successful');
+  const query = 'SELECT * FROM users WHERE username = ? AND password = ?';
+  const values = [username, password];
+  connection.query(query, values, (err, results) => {
+    console.log(results.length);
+    if (err) {
+      console.error('Error executing the query: ' + err.stack);
+      return;
+    } 
+    
+    if(results.length > 0){
+      res.send('Successful login');
+    }else{
+      res.send('Incorrect credentials');
+    }
+  });
 });
 
 app.get('/api/data', (req, res) => {
-  const query = 'SELECT * FROM finances';
+
+  const { username } = req.query;
+  const query = 'SELECT * FROM finances WHERE username = ?';
+  const values = [username];
   
-  connection.query(query, (err, results) => {
+  connection.query(query, values, (err, results) => {
     if (err) {
       console.error('Error executing the query: ' + err.stack);
       res.status(500).json({ error: 'Error fetching data' });
@@ -85,9 +102,11 @@ app.get('/api/data', (req, res) => {
 });
 
 app.get('/api/total', (req, res) => {
-  const query = 'SELECT sum(amount) AS total FROM finances';
+  const { username } = req.query;
+  const query = 'SELECT sum(amount) AS total FROM finances WHERE username = ?';
+  const values = [username];
   
-  connection.query(query, (err, results) => {
+  connection.query(query, values, (err, results) => {
     if (err) {
       console.error('Error executing the query: ' + err.stack);
       res.status(500).json({ error: 'Error fetching total' });

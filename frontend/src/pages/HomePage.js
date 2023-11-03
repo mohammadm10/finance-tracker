@@ -39,7 +39,8 @@ export default function HomePage() {
     }
 
     function fetchData() {
-        fetch('http://localhost:5000/api/data')
+        const url = `http://localhost:5000/api/data?username=${username}`;
+        fetch(url)
             .then((response) => response.json())
             .then((data) => {
                 setData(data);
@@ -50,12 +51,12 @@ export default function HomePage() {
     }
 
     function fetchTotal() {
-        fetch('http://localhost:5000/api/total')
+        const url = `http://localhost:5000/api/total?username=${username}`
+        fetch(url)
             .then((response) => response.json())
             .then((total) => {
                 const totalRounded = Math.round(total['data'][0]['total'] * 100) / 100
                 setTotal(totalRounded);
-                console.log(total['data'][0]['total']);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);

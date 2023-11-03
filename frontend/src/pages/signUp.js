@@ -3,6 +3,7 @@ import { Button, TextField } from '@mui/material';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import Swal from 'sweetalert2';
 
 export default function signUp() {
 
@@ -27,7 +28,11 @@ export default function signUp() {
             } 
         } catch (error) {
             if(error['response']['status'] === 500){
-                console.log('User already exists');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'User already exists',
+                  })
             }
         }
     }

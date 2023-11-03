@@ -15,7 +15,9 @@
     "axios": "^1.6.0",
     "next": "14.0.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.9.0"
   },
   "devDependencies": {
     "autoprefixer": "^10",
