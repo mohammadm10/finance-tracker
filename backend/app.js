@@ -25,26 +25,89 @@ connection.connect((err) => {
   console.log('Connected to the database as id ' + connection.threadId);
 });
 
-app.post('/createUser', (req, res) => {
-  const { username, password } = req.body;
-  console.log(username);
-  console.log(password);
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
-  const query = `INSERT INTO users 
-  (username, password)
-  VALUES 
-  (?, ?)`
-  const values = [username, password];
-  connection.query(query, values, (err, results) => {
-    if (err) {
-      console.error('Error executing the query: ' + err.stack);
-      res.status(500).json({ error: err.stack });
-      return;
-    }
-    console.log('Inserted new user into the database');
+const hashPassword = async (plainPassword) => {
+  try {
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hash = await bcrypt.hash(plainPassword, salt);
+    return hash;
+  } catch (error) {
+    throw error;
+  }
+};
+
+app.post('/createUser', async (req, res) => {
+  try {
+    const { username, password } = req.body;
+
+    const hashedPassword = await hashPassword(password);
+
+    const query = `INSERT INTO users 
+    (username, password)
+    VALUES 
+    (?, ?)`;
+    const values = [username, hashedPassword];
+
+    //Use a Promise to make the callback-based function compatible with async/await
+    const insertUser = () => {
+      return new Promise((resolve, reject) => {
+        connection.query(query, values, (err, results) => {
+          if (err) {
+            console.error('Error executing the query: ' + err.stack);
+            reject(err);
+            return;
+          }
+          console.log('Inserted new user into the database');
+          resolve(results);
+        });
+      });
+    };
+
+    //await to wait for the asynchronous database operation to complete
+    await insertUser();
+
     res.send('Successful user creation');
-  });
-})
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.post('/login', async (req, res) => {
+  try {
+    const { username, password } = req.body;
+
+    const hashedPassword = await hashPassword(password);
+
+    const query = 'SELECT * FROM users WHERE username = ? AND password = ?';
+
+    const values = [username, hashedPassword];
+
+    //Use a Promise to make the callback-based function compatible with async/await
+    const logInUser = () => {
+      return new Promise((resolve, reject) => {
+        connection.query(query, values, (err, results) => {
+          if (err) {
+            console.error('Error executing the query: ' + err.stack);
+            reject(err);
+            return;
+          }
+          console.log('Inserted new user into the database');
+          resolve(results);
+        });
+      });
+    };
+
+    //await to wait for the asynchronous database operation to complete
+    await logInUser();
+
+    res.send('Successful user creation');
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 
 app.post('/enterItem', (req, res) => {
   const { item, amount, username, date } = req.body;
@@ -65,27 +128,6 @@ app.post('/enterItem', (req, res) => {
   });
 })
 
-
-app.post('/login', (req, res) => {
-  const { username, password } = req.body;
-  console.log('Received username:', username);
-  console.log('Received password:', password);
-  const query = 'SELECT * FROM users WHERE username = ? AND password = ?';
-  const values = [username, password];
-  connection.query(query, values, (err, results) => {
-    console.log(results.length);
-    if (err) {
-      console.error('Error executing the query: ' + err.stack);
-      return;
-    } 
-    
-    if(results.length > 0){
-      res.send('Successful login');
-    }else{
-      res.send('Incorrect credentials');
-    }
-  });
-});
 
 app.get('/api/data', (req, res) => {
 
