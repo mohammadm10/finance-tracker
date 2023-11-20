@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
-const mysql = require('mysql2');
+const mysql = require('mysql');
 const cors = require('cors');
 const app = express();
 const port = 5000;
@@ -27,6 +27,8 @@ connection.connect((err) => {
 
 app.post('/createUser', (req, res) => {
   const { username, password } = req.body;
+  console.log(username);
+  console.log(password);
 
   const query = `INSERT INTO users 
   (username, password)
@@ -48,11 +50,11 @@ app.post('/enterItem', (req, res) => {
   const { item, amount, username, date } = req.body;
 
   const query = `INSERT INTO finances
-  (username, item, amount, date)
+  (username, item, amount)
   VALUES
-  (?, ?, ?, ?)`
+  (?, ?, ?)`
 
-  const values = [username, item, amount, date];
+  const values = [username, item, amount];
   connection.query(query, values, (err, results) => {
     if (err) {
       console.error('Error executing the query: ' + err.stack);
