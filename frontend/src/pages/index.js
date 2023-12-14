@@ -62,6 +62,11 @@ export default function Home() {
       </Head>
       <main id='home' className='bg-blue overflow-hidden'>
         <section className='min-h-screen' >
+          <h1 className=' lg:text-xl sm:text-md font-mono font-bold relative p-5'>
+            <a href='https://mohammadm-portfolio.vercel.app/' target='_blank' rel='noopener noreferrer'>
+              developedbyMoe
+            </a>
+          </h1>
           <div className=' flex justify-evenly text-center'>
             <div className=' flex justify-center flex-col'>
               <div className=' text-3xl py-2.5'>

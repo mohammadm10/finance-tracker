@@ -117,6 +117,11 @@ export default function HomePage() {
                 <title>Finanace Tracker</title>
             </Head>
             <main id='loggedIn' className='bg-blue overflow-hidden font-burtons'>
+                <h1 className=' lg:text-xl sm:text-md font-mono font-bold relative px-5 py-2'>
+                    <a href='https://mohammadm-portfolio.vercel.app/' target='_blank' rel='noopener noreferrer'>
+                        developedbyMoe
+                    </a>
+                </h1>
                 <section className='min-h-screen flex justify-center items-center flex-col space-y-4' >
                     <div className=' text-3xl py-2'>
                         <h1>Welcome back {username}!</h1>
