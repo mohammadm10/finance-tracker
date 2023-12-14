@@ -93,7 +93,6 @@ app.post('/login', async (req, res) => {
             reject(err);
             return;
           }
-          console.log('Inserted new user into the database');
           resolve(results);
         });
       });
@@ -123,7 +122,7 @@ app.post('/enterItem', (req, res) => {
       console.error('Error executing the query: ' + err.stack);
       return;
     }
-    console.log('Inserted new user into the database');
+    console.log('Inserted new item into the database');
     res.send('Item added successfully');
   });
 })
