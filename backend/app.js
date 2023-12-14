@@ -159,6 +159,26 @@ app.get('/api/total', (req, res) => {
   });
 });
 
+app.delete('/deleteEntry', (req, res) => {
+  const { id } = req.body;
+
+  if (!id) {
+    return res.status(400).json({ error: 'Missing id in the request body' });
+  }
+
+  const query = 'DELETE FROM finances WHERE id = ?';
+  const values = [id];
+
+  connection.query(query, values, (err, results) => {
+    if (err) {
+      console.error('Error executing the query: ' + err.stack);
+      return res.status(500).json({ error: 'Error deleting entry' });
+    }
+    console.log('Deleted item');
+    res.status(200).json({ success: 'Item deleted successfully' });
+  });
+})
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
