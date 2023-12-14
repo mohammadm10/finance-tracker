@@ -143,11 +143,11 @@ export default function HomePage() {
                             Enter
                         </Button>
                     </div>
-                    <div className='w-[50%] shadow-2xl bg-slate-400'>
+                    <div className='w-[50%] shadow-2xl bg-grey'>
                         {data.data ? (
                             <>
                                 <TableContainer component={Paper}>
-                                    <Table className='bg-slate-400'>
+                                    <Table className='bg-grey'>
                                         <TableHead>
                                             <TableRow>
                                                 <TableCell>Item</TableCell>

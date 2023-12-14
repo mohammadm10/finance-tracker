@@ -17,12 +17,13 @@ module.exports = {
         palatino: "palatino",
         arvo: "arvo"
       },
+      colors: {
+        'orange': "#F64C72",
+        'black': "#010101",
+        'blue': "#d3e1eb",
+        'grey': "#d6d6d6"
+      },
     },
-  },
-  colors: {
-    'orange': "#F64C72",
-    'black': "#010101",
-    'blue': "#d1f4ff",
   },
   plugins: [],
 }

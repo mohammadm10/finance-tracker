@@ -25,14 +25,14 @@ export default function signUp() {
                     pathname: '/HomePage',
                     query: { username: username },
                 });
-            } 
+            }
         } catch (error) {
-            if(error['response']['status'] === 500){
+            if (error['response']['status'] === 500) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
                     text: 'User already exists',
-                  })
+                })
             }
         }
     }
@@ -42,27 +42,41 @@ export default function signUp() {
             <Head>
                 <title>Finanace Tracker</title>
             </Head>
-            <main id='loggedIn' className='bg-white overflow-hidden'>
-                <section className='min-h-screen flex justify-center items-center flex-col space-y-4' >
-                    <p>create your account below</p>
-                    <div className=''>
-                        <TextField id="username" label="Username" variant="outlined" onChange={(e) => setUserName(e.target.value)} />
-                    </div>
-                    <div className=''>
-                        <TextField id="password" label="Password" variant="outlined" onChange={(e) => setPassword(e.target.value)} />
-                    </div>
-                    <div className=''>
-                        <Button onClick={signUp}
-                            style={{
-                                borderRadius: 17,
-                                padding: "10px 30px",
-                                fontSize: "12px",
-                                backgroundColor: "#F64C72",
-                                color: "#FFF"
-                            }}
-                        >
-                            sign up
-                        </Button>
+            <main id='signUp' className=' bg-blue overflow-hidden font-burtons'>
+                <h1 className=' lg:text-xl sm:text-md font-mono font-bold relative p-5'>
+                    <a href='https://mohammadm-portfolio.vercel.app/' target='_blank' rel='noopener noreferrer'>
+                        developedbyMoe
+                    </a>
+                </h1>
+                <section className='min-h-screen'>
+                    <div className=' flex justify-evenly text-center'>
+                        <div className=' flex justify-center flex-col'>
+                            <div className=' text-2xl py-2.5'>
+                                <h1>Create your account by filling in the fields below!</h1>
+                            </div>
+                            <div className=' py-2.5'>
+                                <TextField id="username" label="Username" variant="outlined" onChange={(e) => setUserName(e.target.value)} />
+                            </div>
+                            <div className=' py-2.5'>
+                                <TextField id="password" label="Password" variant="outlined" type="password" onChange={(e) => setPassword(e.target.value)} />
+                            </div>
+                            <div className=' py-2.5'>
+                                <Button onClick={signUp}
+                                    style={{
+                                        borderRadius: 5,
+                                        padding: "10px 30px",
+                                        fontSize: "12px",
+                                        backgroundColor: "#F64C72",
+                                        color: "#FFF"
+                                    }}
+                                >
+                                    sign up
+                                </Button>
+                            </div>
+                        </div>
+                        <div className=' p-10'>
+                            <img src="/finance_image.png" />
+                        </div>
                     </div>
                 </section>
             </main>
